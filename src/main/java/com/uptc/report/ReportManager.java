@@ -6,16 +6,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 public class ReportManager {
 
     private String path;
     private List<FileFormat> report;
+    private ProductFormat format;
 
     public ReportManager(String path) {
         this.path = path;
         this.report = new ArrayList<>();
+        this.format = new ProductFormat();
     }
 
     public void searchReports() {
@@ -33,19 +34,13 @@ public class ReportManager {
 
     private void addBranch(File file) {
         try {
-            List<XSSFSheet> readFile = ReportFile.readFile(file);
-            report.add(new FileFormat(readFile));
+            format.appendFile(ReportFile.readFile(file));
         } catch (InvalidFormatException | IOException e) {
             e.printStackTrace();
         }
     }
 
     public void generateReport() {
-        try {
-            ReportFile.writeFile(report);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        ReportFile.writeReport(format.getWorkbook(), "generalReport.xlsx");
     }
 }
