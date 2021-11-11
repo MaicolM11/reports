@@ -2,20 +2,16 @@ package com.uptc.report;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 public class ReportManager {
 
     private String path;
-    private List<FileFormat> report;
     private ProductFormat format;
 
     public ReportManager(String path) {
         this.path = path;
-        this.report = new ArrayList<>();
         this.format = new ProductFormat();
     }
 
